@@ -45,77 +45,83 @@ export default function Scoreboard({ gameState, onPlayAgain }: ScoreboardProps) 
   const maxPossibleScore = gameState.totalRounds * 10 + gameState.totalRounds * 5; // 10 for location + 5 for questions
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex flex-col items-center justify-center p-8">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-8">
       <div className="max-w-2xl w-full">
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 mb-8">
-          <h1 className="text-4xl font-bold text-white text-center mb-6">
-            Game Complete! 🎉
+        {/* Final Score Card */}
+        <div className="bg-gray-50 rounded-lg p-8 border border-gray-200 mb-8">
+          <h1 className="text-3xl font-light text-gray-900 text-center mb-6">
+            Game Complete
           </h1>
 
-          <div className="bg-white/20 rounded-lg p-6 mb-6">
-            <div className="text-center mb-4">
-              <p className="text-6xl font-bold text-white mb-2">{gameState.score}</p>
-              <p className="text-blue-200">out of {maxPossibleScore} possible points</p>
-            </div>
+          <div className="bg-white rounded-lg p-6 mb-6 border border-gray-200">
+            <p className="text-5xl font-light text-gray-900 text-center mb-2">
+              {gameState.score}
+            </p>
+            <p className="text-sm text-gray-500 text-center">
+              out of {maxPossibleScore} points
+            </p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4 text-white">
-              <div className="bg-white/10 rounded-lg p-3">
-                <p className="text-sm text-blue-200">Category</p>
-                <p className="font-semibold">{gameState.category}</p>
-              </div>
-              <div className="bg-white/10 rounded-lg p-3">
-                <p className="text-sm text-blue-200">Difficulty</p>
-                <p className="font-semibold">{gameState.difficulty}</p>
-              </div>
+          {/* Game Details */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <p className="text-xs text-gray-500 mb-1">Category</p>
+              <p className="text-sm font-medium text-gray-900">{gameState.category}</p>
             </div>
-
-            <div className="mt-4 bg-white/10 rounded-lg p-4">
-              <p className="text-sm text-blue-200 mb-2">Round Breakdown:</p>
-              <div className="flex justify-between text-white">
-                {gameState.roundScores.map((score, idx) => (
-                  <div key={idx} className="text-center">
-                    <p className="text-xs text-blue-200">R{idx + 1}</p>
-                    <p className="font-bold">{score}</p>
-                  </div>
-                ))}
-              </div>
+            <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <p className="text-xs text-gray-500 mb-1">Difficulty</p>
+              <p className="text-sm font-medium text-gray-900">{gameState.difficulty}</p>
             </div>
           </div>
 
+          {/* Round Breakdown */}
+          <div className="bg-white rounded-lg p-4 border border-gray-200 mb-6">
+            <p className="text-xs text-gray-500 mb-3">Round Scores</p>
+            <div className="flex gap-2 justify-between">
+              {gameState.roundScores.map((score, idx) => (
+                <div key={idx} className="flex-1 text-center">
+                  <p className="text-xs text-gray-500 mb-1">Round {idx + 1}</p>
+                  <p className="text-lg font-medium text-gray-900">{score}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Name Input */}
           {!hasSubmitted ? (
             <form onSubmit={handleSubmit} className="mb-6">
-              <label className="block text-white mb-2 font-semibold">
-                Enter your name for the leaderboard:
+              <label className="block text-sm text-gray-700 mb-2 font-medium">
+                Save to Leaderboard
               </label>
-              <div className="flex gap-3">
+              <div className="flex gap-2">
                 <input
                   type="text"
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
-                  placeholder="Your name"
+                  placeholder="Enter your name"
                   maxLength={20}
-                  className="flex-1 px-4 py-3 rounded-lg bg-white/20 text-white placeholder-blue-200 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="flex-1 px-4 py-2 rounded-lg bg-white text-gray-900 placeholder-gray-400 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 text-sm"
                 />
                 <button
                   type="submit"
                   disabled={!playerName.trim()}
-                  className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                  className="bg-gray-900 hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-medium px-6 py-2 rounded-lg transition-colors text-sm"
                 >
-                  Submit
+                  Save
                 </button>
               </div>
             </form>
           ) : (
-            <div className="mb-6 p-4 bg-green-600/30 border border-green-400/50 rounded-lg">
-              <p className="text-white text-center font-semibold">
-                ✓ Score saved to leaderboard!
+            <div className="mb-6 p-3 bg-gray-100 border border-gray-300 rounded-lg">
+              <p className="text-sm text-gray-700 text-center">
+                ✓ Score saved to leaderboard
               </p>
             </div>
           )}
 
           <button
             onClick={onPlayAgain}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+            className="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm"
           >
             Play Again
           </button>
@@ -123,30 +129,27 @@ export default function Scoreboard({ gameState, onPlayAgain }: ScoreboardProps) 
 
         {/* Leaderboard */}
         {highScores.length > 0 && (
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-            <h2 className="text-2xl font-bold text-white mb-4">🏆 Top 10 High Scores</h2>
+          <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
+            <h2 className="text-xl font-light text-gray-900 mb-4">Leaderboard</h2>
             <div className="space-y-2">
               {highScores.map((score, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/10 rounded-lg p-3 flex items-center justify-between"
+                  className="bg-white rounded-lg p-3 flex items-center justify-between border border-gray-200"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl font-bold text-blue-200 w-8">
+                  <div className="flex items-center gap-3 flex-1">
+                    <span className="text-sm font-medium text-gray-500 w-6">
                       #{idx + 1}
                     </span>
-                    <div>
-                      <p className="font-semibold text-white">{score.name}</p>
-                      <p className="text-xs text-blue-200">
-                        {score.category} - {score.difficulty}
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-900">{score.name}</p>
+                      <p className="text-xs text-gray-500">
+                        {score.category} • {score.difficulty}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-xl font-bold text-white">{score.score}</p>
-                    <p className="text-xs text-blue-200">
-                      {new Date(score.date).toLocaleDateString()}
-                    </p>
+                    <p className="text-sm font-medium text-gray-900">{score.score}</p>
                   </div>
                 </div>
               ))}
