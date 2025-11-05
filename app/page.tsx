@@ -16,7 +16,7 @@ export default function Home() {
     category: null,
     difficulty: null,
     currentRound: 0,
-    totalRounds: 5,
+    totalRounds: 3,
     score: 0,
     rounds: [],
     userPin: null,
@@ -39,10 +39,10 @@ export default function Home() {
     setError(null);
 
     try {
-      // Generate all 5 rounds
+      // Generate all 3 rounds
       const rounds: GameRound[] = [];
       
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 3; i++) {
         const response = await fetch('/api/generate-round', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -97,7 +97,7 @@ export default function Home() {
       category: null,
       difficulty: null,
       currentRound: 0,
-      totalRounds: 5,
+      totalRounds: 3,
       score: 0,
       rounds: [],
       userPin: null,

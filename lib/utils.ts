@@ -23,14 +23,14 @@ function toRadians(degrees: number): number {
   return degrees * (Math.PI / 180);
 }
 
-// Calculate score based on distance
+// Calculate score based on distance with expanded radius
 export function calculateScore(distanceKm: number): number {
-  if (distanceKm <= 10) return 10;
-  if (distanceKm <= 20) return 8;
-  if (distanceKm <= 60) return 6;
-  if (distanceKm <= 100) return 4;
-  if (distanceKm <= 150) return 2;
-  if (distanceKm <= 200) return 1;
+  if (distanceKm <= 20) return 10;
+  if (distanceKm <= 40) return 8;
+  if (distanceKm <= 100) return 6;
+  if (distanceKm <= 150) return 4;
+  if (distanceKm <= 250) return 2;
+  if (distanceKm <= 500) return 1;
   return 0;
 }
 

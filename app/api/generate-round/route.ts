@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
 Category: ${category}
 Difficulty: ${difficulty}
-Round: ${roundNumber} of 5
+Round: ${roundNumber} of 3
 
 Generate a JSON object with the following structure:
 {
